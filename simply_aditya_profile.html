@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@simply_aditya.exe — UGC Creator Profile</title>
+<meta name="description" content="Aditya Sharma — Tech UGC Creator from India. Unboxings, tutorials, aesthetic product shots. Open to paid & gifted collabs.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --gray-1: #1a1a1a;
+    --gray-2: #2a2a2a;
+    --gray-3: #444;
+    --gray-4: #888;
+    --accent: #e8ff47;
+    --accent-dim: #c8df20;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { background: var(--black); }
+
+  body {
+    font-family: var(--sans);
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .topbar-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-4);
+    border: 1px solid var(--gray-2);
+    padding: 6px 12px;
+    border-radius: 2px;
+  }
+
+  .topbar-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.15s forwards;
+  }
+
+  .avatar-wrap { position: relative; flex-shrink: 0; }
+
+  .avatar {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gray-2), var(--gray-3));
+    border: 2px solid var(--gray-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 28px;
+    color: var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0deg, transparent 120deg, transparent 240deg, var(--accent) 360deg);
+    z-index: -1;
+    animation: spin 4s linear infinite;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,255,71,0.15);
+    animation: spin 8s linear infinite reverse;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hero-text { padding-top: 4px; }
+
+  .handle {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .handle span { color: var(--accent); }
+
+  .real-name {
+    font-size: 13px;
+    color: var(--gray-4);
+    font-weight: 300;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .bio {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #ccc;
+    font-weight: 300;
+    max-width: 480px;
+  }
+
+  .bio strong { color: var(--white); font-weight: 500; }
+
+  .location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-4);
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+  }
+
+  .location-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--gray-2);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    margin-bottom: 48px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.3s forwards;
+  }
+
+  .stat { background: var(--gray-1); padding: 20px; text-align: center; transition: background 0.2s; }
+  .stat:hover { background: var(--gray-2); }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stat-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-4); }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; opacity: 0; animation: fadeUp 0.6s ease forwards; }
+  .section:nth-child(1) { animation-delay: 0.4s; }
+  .section:nth-child(2) { animation-delay: 0.5s; }
+  .section:nth-child(3) { animation-delay: 0.55s; }
+  .section:nth-child(4) { animation-delay: 0.6s; }
+  .section:nth-child(5) { animation-delay: 0.65s; }
+  .section:nth-child(6) { animation-delay: 0.7s; }
+  .section:nth-child(7) { animation-delay: 0.75s; }
+  .section:nth-child(8) { animation-delay: 0.8s; }
+  .section:nth-child(9) { animation-delay: 0.85s; }
+
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-4);
+    white-space: nowrap;
+  }
+
+  .section-line { flex: 1; height: 1px; background: var(--gray-2); }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 7px 14px;
+    border: 1px solid var(--gray-2);
+    border-radius: 2px;
+    color: var(--white);
+    background: var(--gray-1);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,255,71,0.05); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); background: rgba(232,255,71,0.07); }
+
+  /* ABOUT */
+  .about-text { font-size: 14px; color: #bbb; line-height: 1.8; font-weight: 300; max-width: 640px; }
+  .about-text strong { color: var(--white); font-weight: 500; }
+
+  /* CONTENT GRID */
+  .content-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .content-card {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 18px 16px;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .content-card:hover { border-color: var(--gray-3); transform: translateY(-2px); }
+
+  .content-num { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+  .content-icon { font-size: 20px; margin-bottom: 10px; display: block; }
+
+  .content-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .content-desc { font-size: 11px; color: var(--gray-4); line-height: 1.5; }
+
+  /* PORTFOLIO */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .portfolio-card {
+    aspect-ratio: 4/5;
+    background: var(--gray-1);
+    border: 1.5px dashed var(--gray-2);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .portfolio-card:hover { border-color: var(--gray-3); transform: translateY(-2px); }
+
+  .portfolio-icon { font-size: 26px; opacity: 0.4; }
+
+  .portfolio-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-4);
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .portfolio-sub { font-size: 10px; color: var(--gray-3); text-align: center; padding: 0 12px; }
+
+  /* PACKAGES */
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .package-card {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 22px 18px;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .package-card:hover { border-color: var(--gray-3); transform: translateY(-2px); }
+  .package-card.featured { border-color: var(--accent); background: rgba(232,255,71,0.04); }
+
+  .package-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .package-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  .package-card.featured .package-name { color: var(--accent); }
+
+  .package-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .package-features li {
+    font-size: 11px;
+    color: var(--gray-4);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .package-features li::before {
+    content: '—';
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .gifted-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--gray-4);
+    font-style: italic;
+    line-height: 1.7;
+    border-left: 2px solid var(--gray-2);
+    padding-left: 14px;
+  }
+
+  /* COLLAB TERMS */
+  .collab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .collab-card {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .collab-card:hover { border-color: var(--gray-3); }
+
+  .collab-card-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .collab-card p { font-size: 12px; color: #aaa; line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-block {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .contact-title { font-family: var(--mono); font-size: 13px; color: var(--white); margin-bottom: 6px; }
+
+  .contact-email { font-size: 13px; color: var(--accent); text-decoration: none; letter-spacing: 0.02em; }
+  .contact-email:hover { text-decoration: underline; }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary { background: var(--accent); color: var(--black); font-weight: 700; }
+  .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-2);
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1s forwards;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-handle { font-family: var(--mono); font-size: 11px; color: var(--gray-4); }
+  .footer-handle span { color: var(--accent); }
+  .footer-note { font-family: var(--mono); font-size: 10px; color: var(--gray-3); letter-spacing: 0.1em; }
+
+  /* COPYRIGHT */
+  .copyright-block {
+    border-top: 1px solid var(--gray-2);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .copyright-line {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-3);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+  }
+
+  .copyright-line a { color: var(--gray-4); text-decoration: none; border-bottom: 1px solid var(--gray-2); transition: color 0.2s, border-color 0.2s; }
+  .copyright-line a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .copyright-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+
+  .cbadge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--gray-2);
+    border-radius: 2px;
+    color: var(--gray-3);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { grid-template-columns: 1fr; }
+    .avatar { width: 80px; height: 80px; font-size: 22px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .content-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .packages-grid { grid-template-columns: 1fr; }
+    .collab-row { grid-template-columns: 1fr; }
+    .contact-block { flex-direction: column; align-items: flex-start; }
+    .footer-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="topbar-tag">UGC Creator Profile · 2025</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--gray-4);">OPEN TO COLLABS</span>
+      <div class="topbar-dot"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="avatar-wrap">
+      <div class="avatar">A</div>
+      <div class="avatar-ring"></div>
+    </div>
+    <div class="hero-text">
+      <div class="handle"><span>@</span>simply_aditya.exe</div>
+      <div class="real-name">Aditya Sharma</div>
+      <p class="bio">
+        <strong>Tech UGC creator</strong> making clean, high-energy content for brands that want to stand out.
+        Unboxings, tutorials, aesthetic shots — I bring the hype and the visuals.
+        <strong>All formats. All tech.</strong> Let's make something people actually watch.
+      </p>
+      <div class="location-badge">
+        <span class="location-dot"></span>
+        Based in India · Available worldwide
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Followers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Content Types</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Authentic</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Energy</span>
+    </div>
+  </div>
+
+  <!-- ABOUT ME -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">About Me</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="about-text">
+      I'm Aditya — an early-20s tech UGC creator based in India with a love for <strong>clean aesthetics and real product storytelling</strong>. I create content that brands actually want to use: honest, high-energy, and visually sharp. Whether it's a cinematic unboxing or a quick tutorial Reel, I bring the same enthusiasm and attention to detail every single time.
+      <br><br>
+      Still building my audience, but my content quality speaks first — not my follower count.
+    </p>
+  </div>
+
+  <!-- NICHE & VIBE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Niche & Vibe</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="tags">
+      <span class="tag accent">Tech & Gadgets</span>
+      <span class="tag accent">Clean & Minimal</span>
+      <span class="tag">Smartphones & Laptops</span>
+      <span class="tag">Wearables & Audio</span>
+      <span class="tag">Accessories & Peripherals</span>
+      <span class="tag">Hype & Enthusiastic</span>
+      <span class="tag">Early 20s Creator</span>
+      <span class="tag">India 🇮🇳</span>
+    </div>
+  </div>
+
+  <!-- WHAT I CREATE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">What I Create</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="content-grid">
+      <div class="content-card">
+        <span class="content-num">01</span>
+        <span class="content-icon">📦</span>
+        <div class="content-title">Unboxings & Reviews</div>
+        <p class="content-desc">First-look reactions, honest impressions, and clean reveal shots that build excitement and drive purchase intent.</p>
+      </div>
+      <div class="content-card">
+        <span class="content-num">02</span>
+        <span class="content-icon">🎬</span>
+        <div class="content-title">Tutorials & How-Tos</div>
+        <p class="content-desc">Step-by-step walkthroughs that show real product value and build trust with your audience.</p>
+      </div>
+      <div class="content-card">
+        <span class="content-num">03</span>
+        <span class="content-icon">📸</span>
+        <div class="content-title">Aesthetic Product Shots</div>
+        <p class="content-desc">Flat lays, cinematic close-ups, and real-life usage — all with a clean, minimal edge that makes products look premium.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMATS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Formats</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="tags">
+      <span class="tag accent">Reels (Short-form Video)</span>
+      <span class="tag accent">Carousels</span>
+      <span class="tag accent">Static Posts</span>
+      <span class="tag">IG Stories</span>
+      <span class="tag">Vertical & Horizontal</span>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Portfolio</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-icon">📦</div>
+        <div class="portfolio-label">Unboxing Reel</div>
+        <div class="portfolio-sub">Coming soon</div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-icon">🎬</div>
+        <div class="portfolio-label">Tutorial Reel</div>
+        <div class="portfolio-sub">Coming soon</div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-icon">📸</div>
+        <div class="portfolio-label">Product Shots</div>
+        <div class="portfolio-sub">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLAB PACKAGES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Collab Packages</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="packages-grid">
+      <div class="package-card">
+        <div class="package-name">Starter</div>
+        <ul class="package-features">
+          <li>1 × Static post or Story</li>
+          <li>Basic usage rights (30 days)</li>
+          <li>1 revision round</li>
+          <li>Delivered in 5–7 days</li>
+        </ul>
+      </div>
+      <div class="package-card featured">
+        <div class="package-badge">Most Popular</div>
+        <div class="package-name">Core UGC</div>
+        <ul class="package-features">
+          <li>1 × Reel + 1 × Carousel</li>
+          <li>Extended usage rights (90 days)</li>
+          <li>2 revision rounds</li>
+          <li>Raw files included</li>
+          <li>Delivered in 7–10 days</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <div class="package-name">Full Pack</div>
+        <ul class="package-features">
+          <li>2 × Reels + 1 × Carousel + Statics</li>
+          <li>Full usage rights (6 months)</li>
+          <li>Unlimited revisions</li>
+          <li>Raw files + B-roll</li>
+          <li>Priority delivery</li>
+        </ul>
+      </div>
+    </div>
+    <p class="gifted-note">✦ All rates are open to discussion based on deliverables, usage, and brand fit. Gifted collaborations considered for products I genuinely love — let's talk!</p>
+  </div>
+
+  <!-- COLLAB TERMS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Collab Terms</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-card">
+        <div class="collab-card-title">💸 Paid UGC</div>
+        <p>Brand pays for content creation rights. Final assets delivered for use in ads, website, and social. Usage rights negotiable.</p>
+      </div>
+      <div class="collab-card">
+        <div class="collab-card-title">🎁 Gifted Collabs</div>
+        <p>Open to gifted partnerships for products I genuinely love. Organic, authentic content — no forced scripts.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Work With Me</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-block">
+      <div>
+        <div class="contact-title">Ready to collab?</div>
+        <a href="mailto:simplyaditya.contact@gmail.com" class="contact-email">simplyaditya.contact@gmail.com</a>
+      </div>
+      <a href="mailto:simplyaditya.contact@gmail.com" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-top">
+      <div class="footer-handle"><span>@</span>simply_aditya.exe · Aditya Sharma</div>
+      <div class="footer-note">UGC · TECH · INDIA · 2025</div>
+    </div>
+
+    <div class="copyright-block">
+      <p class="copyright-line">
+        © 2025 Aditya Sharma. All rights reserved. All content, branding, copy, and creative assets on this page — including but not limited to text, layout, imagery descriptions, and design — are the intellectual property of Aditya Sharma (<span style="color:var(--gray-4)">@simply_aditya.exe</span>) and may not be reproduced, distributed, or used without prior written permission.
+      </p>
+      <p class="copyright-line">
+        All UGC content created by Aditya Sharma remains the creator's intellectual property until full usage rights are granted via a signed agreement. Usage rights are non-transferable unless explicitly stated in writing. Brands and third parties may not repurpose, resell, or sublicense content beyond agreed terms. Unauthorised use of any content may constitute copyright infringement under applicable law.
+      </p>
+      <p class="copyright-line">
+        Collaboration inquiries: <a href="mailto:simplyaditya.contact@gmail.com">simplyaditya.contact@gmail.com</a> · Response within 24 hours · Instagram: <a href="https://instagram.com/simply_aditya.exe" target="_blank">@simply_aditya.exe</a>
+      </p>
+      <div class="copyright-badges">
+        <span class="cbadge">© All Rights Reserved</span>
+        <span class="cbadge">IP Protected</span>
+        <span class="cbadge">Usage Rights Apply</span>
+        <span class="cbadge">Content by Creator</span>
+        <span class="cbadge">No Reuse Without Permission</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
